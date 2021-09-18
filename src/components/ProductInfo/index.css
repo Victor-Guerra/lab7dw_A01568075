@@ -3,6 +3,14 @@
     padding: 10px;
 }
 
+.cartButton {
+    background-color: rgb(172, 104, 235) !important;
+}
+
+.bold {
+    font-weight: bold !important;
+}
+
 img.largeImage {
     width: 500px !important;
     height: 500px !important;
@@ -15,6 +23,7 @@ div.largeImage {
 
 .productName {
     font-size: 3em !important;
+    background-color: rgb(125, 125, 255);
 }
 
 .productGrid {
