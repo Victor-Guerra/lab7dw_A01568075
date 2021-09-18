@@ -8,6 +8,11 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import './index.css';
 
+
+/**
+ * Contains the HTML markup for the Navigation Bar
+ * @returns {string} - HTML markup for the Navigation Bar UI Elements
+ */
 const NavigationBar=()=>{
   return (
 <AppBar position="static" className="navBar-color">
