@@ -1,11 +1,51 @@
 import "./index.css";
-import { Grid, Paper, Typography, InputLabel, Select, MenuItem, Button} from "@material-ui/core";
+import Product from "../../types/Product";
+import { 
+    Grid,
+    Paper, 
+    Typography, 
+    InputLabel, 
+    Select, 
+    MenuItem, 
+    Button
+} from "@material-ui/core";
+
+interface ProductInfoProps {
+    product: Product;
+}
 
 /**
  * Contains the HTML markup for the product info.
  * @returns {string} - HTML markup for the product info.
  */
-const ProductInfo=()=>{
+const ProductInfo : React.FC<ProductInfoProps> =( props )=>{
+    var listPrice = 0.00;
+    if (props.product !== undefined && props.product.childSkus !== undefined && props.product.childSkus[0] !== undefined) {
+        listPrice = props.product.childSkus[0].listPrice;
+    }
+    
+    var salePrice = 0.00;
+    if (props.product !== undefined && props.product.childSkus !== undefined && props.product.childSkus[0] !== undefined) {
+        salePrice = props.product.childSkus[0].salePrice;
+    }
+    
+    var colors: any[] = [];
+    var sizes : any[] = [];
+
+    var selectedColor="";
+    var selectedSize ="";
+    if (props.product !== undefined && props.product.childSkus !== undefined) {
+        selectedColor = props.product.childSkus[0].color;
+        props.product.childSkus.forEach( (sku: any) => {
+            colors.push(<MenuItem value={sku.color}>{sku.color}</MenuItem>);
+        });
+        
+        selectedSize = props.product.childSkus[0].size;
+        props.product.childSkus.forEach( (sku: any) => {
+            sizes.push(<MenuItem value={sku.size}>{sku.size}</MenuItem>);
+        });
+    }
+
     return(
         <div className="productInfo">
             <Grid container className="productGrid" spacing={2}>
@@ -18,23 +58,22 @@ const ProductInfo=()=>{
                 <Grid item lg={8} container>
                     <Grid item lg={12}>
                         <Typography className="productName" variant="h1">
-                            Levi's 501 Original Fit Jeans Jeans para Hombre
+                        {props.product.name}
                         </Typography>
                     </Grid>
                     <Grid item lg={12}>
                         <Typography>
-                            100% algodon, Cierre de Cremallera, Lavar a maquina, Jeans corte ajustado,
-                            Pierna ajustada, Stretch especial que te brinda mayor movilidad.     
+                        {props.product.description}
                         </Typography>
                     </Grid> 
                     <Grid item lg={2}>
                         <Typography className="dollars crossedout">
-                            1027.24
+                        {listPrice}
                         </Typography>
                     </Grid>
                     <Grid item lg={2}>
                         <Typography className="dollars">
-                            706.93
+                        {salePrice}
                         </Typography>
                     </Grid>
                     <Grid item lg={8}/>
@@ -44,10 +83,9 @@ const ProductInfo=()=>{
                             labelId="color-selection"
                             id="color-select"
                             label="Color"
+                            value={selectedColor}
                         >
-                        <MenuItem value="BLK">Black</MenuItem>
-                        <MenuItem value="BLU">Blue</MenuItem>
-                        <MenuItem value="BWN">Brown</MenuItem>
+                        {colors}
                         </Select>
                     </Grid>
                     <Grid item lg={2}>
@@ -56,10 +94,9 @@ const ProductInfo=()=>{
                             labelId="size-selection"
                             id="size-select"
                             label="size"
+                            value={selectedSize}
                         >
-                        <MenuItem value="28x32">28x32</MenuItem>
-                        <MenuItem value="30x32">30x32</MenuItem>
-                        <MenuItem value="32x32">32x32</MenuItem>
+                        {sizes}
                         </Select>
                     </Grid>
                     <Grid item lg={8}/>
@@ -70,6 +107,7 @@ const ProductInfo=()=>{
                             labelId="quantity-selection"
                             id="quantity-select"
                             label="Qty."
+                            value={1}
                         >
                         <MenuItem value="1">1</MenuItem>
                         <MenuItem value="2">2</MenuItem>
