@@ -20,13 +20,24 @@ interface ProductInfoProps {
  */
 const ProductInfo : React.FC<ProductInfoProps> =( props )=>{
     var listPrice = 0.00;
-    if (props.product !== undefined && props.product.childSkus !== undefined && props.product.childSkus[0] !== undefined) {
+    if (props.product !== undefined && 
+        props.product.childSkus !== undefined && 
+        props.product.childSkus[0] !== undefined) {
         listPrice = props.product.childSkus[0].listPrice;
     }
     
     var salePrice = 0.00;
-    if (props.product !== undefined && props.product.childSkus !== undefined && props.product.childSkus[0] !== undefined) {
+    if (props.product !== undefined && 
+        props.product.childSkus !== undefined && 
+        props.product.childSkus[0] !== undefined) {
         salePrice = props.product.childSkus[0].salePrice;
+    }
+
+    var largeImage = "";
+    if (props.product !== undefined && 
+        props.product.childSkus !== undefined && 
+        props.product.childSkus[0] !== undefined) {
+        largeImage = props.product.childSkus[0].largeImageUrl;
     }
     
     var colors: any[] = [];
@@ -51,7 +62,7 @@ const ProductInfo : React.FC<ProductInfoProps> =( props )=>{
             <Grid container className="productGrid" spacing={2}>
                 <Grid item lg={4}>
                     <Paper className="largeImage">
-                        <img src="https://dummyimage.com/500x500/000/0011ff" alt="Product"/>
+                        <img src={largeImage} alt={props.product.name}/>
                     </Paper>
                 </Grid>
             
