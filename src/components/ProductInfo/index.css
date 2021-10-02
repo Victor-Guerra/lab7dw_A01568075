@@ -22,7 +22,7 @@ div.largeImage {
 }
 
 .productName {
-    font-size: 3em !important;
+    font-size: 3rem !important;
     background-color: rgb(125, 125, 255);
 }
 
@@ -36,4 +36,13 @@ div.largeImage {
 
 .crossedout {
     text-decoration: line-through;
+}
+
+.commentGrid {
+    margin-top: 2rem !important;
+}
+
+.commentTitle {
+    font-size: 3rem !important;
+    font-weight: bold !important;
 }

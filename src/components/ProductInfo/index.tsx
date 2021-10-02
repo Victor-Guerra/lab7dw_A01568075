@@ -1,4 +1,5 @@
 import "./index.css";
+import React from 'react';
 import Product from "../../types/Product";
 import { 
     Grid,
@@ -7,7 +8,11 @@ import {
     InputLabel, 
     Select, 
     MenuItem, 
-    Button
+    Button,
+    List,
+    ListItem,
+    ListItemText,
+    Divider
 } from "@material-ui/core";
 
 interface ProductInfoProps {
@@ -45,7 +50,7 @@ const ProductInfo : React.FC<ProductInfoProps> =( props )=>{
 
     var selectedColor="";
     var selectedSize ="";
-    if (props.product !== undefined && props.product.childSkus !== undefined) {
+    if (props.product !== undefined && props.product.childSkus !== undefined && props.product.childSkus[0] !== undefined) {
         selectedColor = props.product.childSkus[0].color;
         props.product.childSkus.forEach( (sku: any) => {
             colors.push(<MenuItem value={sku.color}>{sku.color}</MenuItem>);
@@ -54,6 +59,30 @@ const ProductInfo : React.FC<ProductInfoProps> =( props )=>{
         selectedSize = props.product.childSkus[0].size;
         props.product.childSkus.forEach( (sku: any) => {
             sizes.push(<MenuItem value={sku.size}>{sku.size}</MenuItem>);
+        });
+    }
+
+    var comments: any[] = [];
+    if (props.product !== undefined && props.product.comments !== undefined) {
+        props.product.comments.forEach( (comment) => {
+            comments.push(
+                <React.Fragment>
+                    <ListItem alignItems="flex-start">
+                        <ListItemText 
+                        primary={comment.author}
+                        secondary={
+                            <React.Fragment>
+                                <Typography>
+                                    {comment.body}
+                                </Typography>
+                                {comment.created}
+                            </React.Fragment>
+                        }
+                        />
+                    </ListItem>
+                    <Divider variant="inset" component="li" />
+                </React.Fragment>
+            );
         });
     }
 
@@ -135,6 +164,21 @@ const ProductInfo : React.FC<ProductInfoProps> =( props )=>{
                     <Grid item lg={8}/>
                     
                     <Grid item lg={12}/>
+                </Grid>
+            </Grid>
+         
+            <Grid container className="commentGrid" spacing={2}>
+                <Grid item lg={4}>
+                    <Typography variant="h2" className="commentTitle">
+                    Comments
+                    </Typography> 
+                </Grid>
+                <Grid item lg={8}/>
+
+                <Grid item lg={12}>
+                    <List>
+                        {comments}
+                    </List>
                 </Grid>
             </Grid>
         </div>
