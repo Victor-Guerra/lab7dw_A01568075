@@ -5,6 +5,7 @@ import {
     Paper, 
     Typography
 } from "@material-ui/core";
+import {Link} from "react-router-dom";
 
 interface ProductPreviewProps {
     product: Product;
@@ -29,26 +30,32 @@ const ProductPreview : React.FC<ProductPreviewProps> = ( props ) => {
     var imageurl = "";
     if (props.product !== undefined && props.product.childSkus !== undefined && props.product.childSkus[0] !== undefined) {
         imageurl = props.product.childSkus[0].mediumImageUrl;
+    } else {
+        imageurl = "https://dummyimage.com/200x200/000/0011ff";
     }
 
     return(
         <div className="productPreview">
-            <Grid container className="productGrid" spacing={10}>
+            <Grid container className="productGrid" spacing={2}>
                 <Grid item lg={2}>
                     <Paper className="mediumImage">
+                        <Link to={`/pdp?productId=${props.product.id}`}>
                         <img src={imageurl} alt={props.product.name}/>
+                        </Link>
                     </Paper>
                 </Grid>
             
                 <Grid item lg={10} container>
                     <Grid item lg={12}>
                         <Typography className="productName" variant="h1">
-                        {props.product.name}
+                        <Link to={`/pdp?productId=${props.product.id}`} className="unstylizedLink">{props.product.name}
+                        </Link>
                         </Typography>
                     </Grid>
                     <Grid item lg={12}>
-                        <Typography>
-                        {props.product.description}
+                        <Typography className="description">
+                        <Link to={`/pdp?productId=${props.product.id}`} className="unstylizedLink">{props.product.description}
+                        </Link>
                         </Typography>
                     </Grid> 
 

@@ -4,7 +4,7 @@ import {
     IconButton, 
     Typography
 } from "@material-ui/core";
-
+import {Link} from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
 import './index.css';
 
@@ -20,9 +20,11 @@ const NavigationBar=()=>{
     <IconButton>
       <MenuIcon/>
     </IconButton>
+    <Link to="/" className="unstylizedLink">
     <Typography variant="h6" color="inherit" component="div">
       ChambaSoft Store
     </Typography>
+    </Link>
   </Toolbar>
 </AppBar>
   )
